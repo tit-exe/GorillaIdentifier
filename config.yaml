@@ -1,0 +1,43 @@
+# config.yaml — single configuration file for the entire pipeline
+# ================================================================
+# To adapt to a new species: edit species, project_name, and optionally
+# the cache dirs. All other paths are relative to the repo root and
+# should NOT be changed unless you reorganize the data/ folder.
+# ================================================================
+
+# --- Project ---
+species:      "Gorilla beringei beringei"  # species name (used in logs and exports)
+project_name: "gorilla_virunga"           # used as filename prefix for gallery exports
+
+# --- Data paths (relative to repo root, do NOT use absolute paths) ---
+raw_photos_dir:  "data/photos"          # one subfolder per individual
+wild_images_dir: "data/wild_images/raw" # unlabeled internet images (background class)
+output_dir:      "output"               # training outputs, results, exports
+
+# --- HuggingFace / PyTorch cache ---
+# Uncomment and edit ONLY if you want to redirect downloads to a specific drive.
+# Default (commented out): uses the OS standard cache (~/.cache/huggingface and ~/.cache/torch).
+# On Windows with a small C: drive, point to a larger drive:
+#
+# hf_cache_dir:    "D:/HuggingFaceCache"
+# torch_cache_dir: "D:/TorchCache"
+
+# --- GPU & performance ---
+device:     "auto"   # auto | cuda | cpu
+batch_size: 32       # reduce to 16 if VRAM < 4 GB
+
+# --- YOLO (face detection) ---
+yolo_confidence:  0.30   # detection confidence threshold
+yolo_face_margin: 0.05   # margin around detected box (5% of box size)
+
+# --- MegaDescriptor + ArcFace ---
+arc_scale:      64
+arc_margin:     0.50
+max_epochs:     100
+patience:       25
+patience_start: 35       # early stopping starts from this epoch
+lr_backbone:    1.0e-5
+lr_head:        5.0e-4
+
+# --- Open-set gallery ---
+unknown_threshold: 0.22  # cosine similarity below which an identity is "unknown"
