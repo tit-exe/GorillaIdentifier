@@ -50,6 +50,18 @@ import io, json, math, time, signal, random, shutil, warnings, argparse
 from pathlib import Path
 from datetime import datetime, timedelta
 from collections import Counter, defaultdict
+
+# -- Dependency guard: on a missing package, show the exact install command ------
+import importlib.util as _ilu
+_missing = [m for m in ("numpy", "torch") if _ilu.find_spec(m) is None]
+if _missing:
+    print("\n[STOP] Missing Python package(s): " + ", ".join(_missing))
+    print("Install in the 'gorilla_id' environment (Anaconda Prompt):\n")
+    print("  conda activate gorilla_id")
+    print("  pip install torch==2.4.1+cu124 torchvision==0.19.1+cu124 --index-url https://download.pytorch.org/whl/cu124")
+    print("  pip install -r requirements.txt")
+    raise SystemExit(1)
+
 import numpy as np
 import torch
 import torch.nn as nn

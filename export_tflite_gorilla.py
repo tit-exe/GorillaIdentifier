@@ -68,6 +68,14 @@ WORK_DIR.mkdir(parents=True, exist_ok=True)
 # 1. Backbone -> TFLite
 # --------------------------------------------------------------------------------
 log("Importing torch / timm...")
+# -- Dependency guard: on a missing package, show the exact install command ------
+_missing = [m for m in ("torch", "timm") if importlib.util.find_spec(m) is None]
+if _missing:
+    log("Missing Python package(s): " + ", ".join(_missing), "STOP")
+    log("This script runs inside WSL, in the export environment. Install by hand:")
+    log("  pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu")
+    log("  pip install timm litert-torch pillow numpy huggingface_hub")
+    sys.exit(1)
 import torch
 import timm
 log(f"torch: {torch.__version__}")
