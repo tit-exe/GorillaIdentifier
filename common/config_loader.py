@@ -94,14 +94,14 @@ OUTPUT_DIR: Path = REPO_ROOT / _cfg.get("output_dir", "output")
 
 # Crops — 224x224 face crops extracted by YOLO
 CROPS_DIR: Path       = REPO_ROOT / "data/crops"
-CROPS_KNOWN_DIR: Path = CROPS_DIR / "known"   # labeled individuals (zoo, BOS, field)
+CROPS_KNOWN_DIR: Path = CROPS_DIR / "known"   # one folder per labeled gorilla individual
 CROPS_WILD_DIR: Path  = CROPS_DIR / "wild"    # unlabeled wild crops (background class)
 
 # Unified JSON tracking all crops from all pipeline versions
 CROPS_JSON: Path = REPO_ROOT / "data/crops.json"
 
 # ---------------------------------------------------------------------------
-# Model paths (not in git — download from Zenodo / see models/download_models.py)
+# Model paths (not in git — download from HuggingFace, see models/download_models.py)
 # ---------------------------------------------------------------------------
 MODELS_DIR: Path = REPO_ROOT / "models"
 
@@ -129,7 +129,7 @@ DEVICE: str           = _cfg.get("device", "auto")
 # ---------------------------------------------------------------------------
 # Open-set gallery
 # ---------------------------------------------------------------------------
-UNKNOWN_THRESHOLD: float = float(_cfg.get("unknown_threshold", 0.22))
+UNKNOWN_THRESHOLD: float = float(_cfg.get("unknown_threshold", 0.4689))
 
 # ---------------------------------------------------------------------------
 # Helpers

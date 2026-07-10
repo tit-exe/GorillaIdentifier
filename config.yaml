@@ -40,4 +40,6 @@ lr_backbone:    1.0e-5
 lr_head:        5.0e-4
 
 # --- Open-set gallery ---
-unknown_threshold: 0.22  # cosine similarity below which an identity is "unknown"
+unknown_threshold: 0.4689  # cosine cutoff below which an identity is "unknown".
+                           # Initial value only: each training run recalibrates it (max F1)
+                           # and stores the final value in the gallery (V1 = 0.4689).

@@ -116,7 +116,7 @@ Stratified split (per individual): 85% training / 15% validation (`VAL_RATIO = 0
 ### 3.1 Detection model
 
 Custom YOLO detector (`yolo_gorilla.pt`, ~7 MB) trained specifically for mountain
-gorilla faces in the Virungas. Downloadable from Zenodo (see README.md).
+gorilla faces in the Virungas. Downloadable from HuggingFace (see README.md).
 
 - Input: original image, resized to 640×640
 - Confidence threshold: 0.30 (configurable via `config.yaml`)
@@ -527,10 +527,10 @@ for t in thresholds:
     r  = tp / (tp + fn + 1e-9)
     f1s.append(2*p*r / (p+r+1e-9))
 
-opt_t = float(thresholds[np.argmax(f1s)])   # → 0.469 for V1
+opt_t = float(thresholds[np.argmax(f1s)])   # → 0.4689 for V1
 ```
 
-**V1 calibrated threshold: 0.469**
+**V1 calibrated threshold: 0.4689**
 
 ### 8.4 Separability gap
 
@@ -543,7 +543,7 @@ gap = mean(pos_sims) − mean(neg_sims)
 The higher the gap, the better individuals are separated in embedding space.
 Rough interpretation: gap > 0.7 = excellent, > 0.5 = good, < 0.3 = insufficient.
 
-**V1: gap = 0.435**
+**V1: gap = 0.4351**
 
 ### 8.5 Gallery JSON format
 
@@ -554,8 +554,8 @@ Rough interpretation: gap > 0.7 = excellent, > 0.5 = good, < 0.3 = insufficient.
   "embedding_dim": 768,
   "normalization": "megadescriptor",
   "similarity_metric": "cosine",
-  "unknown_threshold": 0.469,
-  "separability_gap": 0.435,
+  "unknown_threshold": 0.4689,
+  "separability_gap": 0.4351,
   "n_individuals": 66,
   "individuals": {
     "SB Mastaki": {
@@ -637,8 +637,8 @@ The final benchmark (run after training) computes, over the validation set:
 | Top-3 accuracy | **96.1 %** |
 | Mean F1 | **0.981** |
 | Composite score | **0.808** |
-| Calibrated rejection threshold | **0.469** |
-| Separability gap | **0.435** |
+| Calibrated rejection threshold | **0.4689** |
+| Separability gap | **0.4351** |
 | Training time | ~66 min (RTX 3050 4 GB) |
 
 ---
@@ -662,7 +662,7 @@ Two conditions must both hold for a positive identification:
 
 | Condition | Threshold | Purpose |
 |---|---|---|
-| `best_score ≥ unknown_threshold` | 0.469 (V1) | Rejects absolute unknowns |
+| `best_score ≥ unknown_threshold` | 0.4689 (V1) | Rejects absolute unknowns |
 | `margin ≥ 0.08` | fixed | Rejects ambiguous identifications (top-1 ≈ top-2) |
 
 If either fails → **"Unknown gorilla"**.
@@ -698,7 +698,7 @@ All output files live in `output/v1_gorilla/` (not tracked by git, see .gitignor
     "version": "v1-gorilla",
     "generated": "2026-06-12T13:44:27",
     "training_min": 65.9,
-    "separability_gap": 0.435
+    "separability_gap": 0.4351
   },
   "data_info": {
     "total_individuals_raw": 71,
@@ -729,8 +729,8 @@ All output files live in `output/v1_gorilla/` (not tracked by git, see .gitignor
     "acc_top1_pct": 93.0,
     "acc_top3_pct": 96.1,
     "mean_f1": 0.981,
-    "gallery_threshold": 0.469,
-    "separability_gap": 0.435,
+    "gallery_threshold": 0.4689,
+    "separability_gap": 0.4351,
     "per_class": { "SB Humba": { "f1": 1.0, "precision": 1.0, "recall": 1.0 } }
   },
   "hyperparams": {

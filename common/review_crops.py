@@ -3,7 +3,7 @@
 # 
 #
 # Drag and drop ANY crop image onto the window.
-# Works with known individuals (zoo/BOS), wild crops, or any mix.
+# Works with known gorilla individuals, wild crops, or any mix.
 # Finds the crop entry in data/crops.json regardless of version (V1–V4).
 #
 # KEYS:
@@ -123,7 +123,7 @@ def find_entry(crop_path: Path, db: dict):
     Find the JSON entry for a given crop file.
 
     Lookup order:
-      1. Direct key "IndividualName/stem"  — known individuals (zoo, BOS)
+      1. Direct key "IndividualName/stem"  — known individuals
       2. Direct key "wild/stem"            — wild/background crops
       3. Scan all entries for matching crop_file basename  — any structure
       4. Match by individu+stem fields     — legacy entries

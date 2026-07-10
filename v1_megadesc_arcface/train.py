@@ -1376,7 +1376,7 @@ def extract_crops(min_photos):
     section("Crop extraction (YOLO)")
     if not YOLO_MODEL.exists():
         log(f"  ERROR: YOLO model not found at {YOLO_MODEL}", "ERROR")
-        log("  Download the gorilla model from: https://zenodo.org/records/18757935", "WARN")
+        log("  Download the gorilla model with: python models/download_models.py", "WARN")
         log("  Place it at models/yolo_gorilla.pt and rerun with --extract", "WARN")
         return False
 
@@ -1736,7 +1736,7 @@ def main():
             ck_names = torch.load(str(CKPT_RESUME), map_location="cpu",
                                   weights_only=False).get("names", [])
             if ck_names != known_names:
-                log("  ⚠ Incompatible checkpoint (individuals changed) — clean restart", "WARN")
+                log("  ! Incompatible checkpoint (individuals changed) — clean restart", "WARN")
                 CKPT_RESUME.unlink()
                 if CKPT_BEST.exists(): CKPT_BEST.unlink()
         except Exception:
@@ -1827,7 +1827,7 @@ def main():
                     _cur["opt"] or _mk_opt(PHASES[_cur["phase"]]), _cur["sched"],
                     _cur["phase"], _cur["ep"]-1, _cur["g_ep"]-1,
                     best_val, best_ep, history, known_names)  # known_names, not names
-        log("[EMERGENCY] saved ✓", "WARN")
+        log("[EMERGENCY] saved OK", "WARN")
     global _save_fn; _save_fn = _emrg
 
     def _mk_opt(pc):
@@ -1946,7 +1946,7 @@ def main():
             if RICH and live_ctx:
                 live_ctx.update(make_table(live_state, pc, g_ep, best_ep, best_val))
             else:
-                star = " ★" if is_best else ""
+                star = " *" if is_best else ""
                 _ur_str = f" unk={_ur*100:.0f}%" if unk_rate is not None else ""
                 log(f"  Ep {g_ep:3d} | arc={la:.3f} sup={ls:.3f} inv={li:.3f} "
                     f"| clean={acc_c*100:.1f}% deg={acc_d*100:.1f}%{_ur_str} "
